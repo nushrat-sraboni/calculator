@@ -1,0 +1,184 @@
+/* ---------- 1. Colors & basic setup ---------- */
+:root {
+    --pink-50: #fff6f9;
+    --pink-100: #ffe6ee;
+    --pink-200: #ffcade;
+    --pink-300: #ffabc8;
+    --pink-400: #f98bb3;
+    --pink-500: #e8689a;
+    --rose-text: #b0396b;
+    --deep-text: #7d2d52;
+  
+    --shadow-soft: 0 10px 30px rgba(232, 104, 154, 0.25);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ---------- 2. Page background & centering ---------- */
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+    font-family: "Quicksand", "Segoe UI", system-ui, sans-serif;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.7) 0, transparent 35%),
+      radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.6) 0, transparent 35%),
+      linear-gradient(135deg, var(--pink-100), var(--pink-200));
+  }
+  
+  /* ---------- 3. Calculator body ---------- */
+  .calculator {
+    position: relative; /* lets us place the bow on top */
+    width: 100%;
+    max-width: 360px;
+    padding: 28px 20px 22px;
+    border-radius: 32px;
+    border: 3px solid #ffffff;
+    background: linear-gradient(160deg, var(--pink-50), var(--pink-100));
+    box-shadow: var(--shadow-soft), inset 0 2px 6px rgba(255, 255, 255, 0.9);
+  }
+  
+  /* A little bow on top (made with CSS, no extra HTML needed) */
+  .calculator::before {
+    content: "🎀";
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    filter: drop-shadow(0 3px 4px rgba(232, 104, 154, 0.3));
+  }
+  
+  /* ---------- 4. Display ---------- */
+  .display {
+    min-height: 90px;
+    margin-bottom: 18px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: right;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--deep-text);
+    background: #ffffff;
+    border: 2px solid var(--pink-200);
+    border-radius: 22px;
+    box-shadow: inset 0 3px 8px rgba(232, 104, 154, 0.15);
+    overflow-x: auto;      /* long numbers scroll instead of breaking the layout */
+    word-break: break-all;
+  }
+  
+  /* ---------- 5. Button grid ---------- */
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 12px;
+  }
+  
+  /* ---------- 6. Shared button style ---------- */
+  button {
+    height: 64px;
+    border: none;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 1.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    box-shadow: 0 4px 10px rgba(232, 104, 154, 0.18);
+  }
+  
+  /* Hover: lifts up a tiny bit */
+  button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(232, 104, 154, 0.28);
+  }
+  
+  /* Click: presses down */
+  button:active {
+    transform: translateY(1px) scale(0.95);
+    box-shadow: 0 2px 5px rgba(232, 104, 154, 0.2);
+  }
+  
+  /* Shows a clear outline for keyboard users */
+  button:focus-visible {
+    outline: 3px solid var(--pink-400);
+    outline-offset: 3px;
+  }
+  
+  /* ---------- 7. Button types ---------- */
+  
+  /* Numbers and decimal: light and white */
+  .number,
+  #decimal {
+    background: linear-gradient(180deg, #ffffff, var(--pink-50));
+    color: var(--deep-text);
+  }
+  
+  /* Operators: stronger pink */
+  .operator {
+    background: linear-gradient(180deg, var(--pink-300), var(--pink-400));
+    color: #ffffff;
+  }
+  
+  /* Clear and delete: soft blush with rose text */
+  #clear,
+  #delete {
+    background: var(--pink-200);
+    color: var(--rose-text);
+  }
+  
+  /* Equals: the star of the show */
+  #equals {
+    background: linear-gradient(135deg, var(--pink-400), var(--pink-500));
+    color: #ffffff;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 16px rgba(232, 104, 154, 0.45);
+  }
+  
+  #equals:hover {
+    filter: brightness(1.06);
+    box-shadow: 0 10px 22px rgba(232, 104, 154, 0.55);
+  }
+  
+  /* The 0 button is twice as wide */
+  .zero {
+    grid-column: span 2;
+  }
+  
+  /* ---------- 8. Mobile ---------- */
+  @media (max-width: 400px) {
+    .calculator {
+      padding: 26px 14px 18px;
+      border-radius: 28px;
+    }
+  
+    .display {
+      min-height: 76px;
+      font-size: 2.1rem;
+    }
+  
+    .buttons {
+      gap: 9px;
+    }
+  
+    button {
+      height: 56px;
+      font-size: 1.2rem;
+      border-radius: 17px;
+    }
+  }
+  
+  /* Respect people who prefer less motion */
+  @media (prefers-reduced-motion: reduce) {
+    button {
+      transition: none;
+    }
+  }
